@@ -85,7 +85,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--i
 .hbar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--navy),var(--blue));display:flex;align-items:center;justify-content:flex-end;padding-right:10px;color:#fff;font-size:11.5px;font-weight:700;min-width:36px}
 .foot{color:var(--muted);font-size:12.5px;margin-top:40px;line-height:1.6;border-top:1px solid var(--border);padding-top:18px}
 @media(max-width:900px){.variance{grid-template-columns:1fr 1fr}.hipo{grid-template-columns:1fr}.wrap{padding:24px}.seats-num{font-size:46px}}
-.dual-note{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.dual-note{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}
 .dual-cell{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;box-shadow:var(--shadow)}
 .dual-cell .dual-lbl{font-size:11.5px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:700}
 .dual-cell b{display:block;font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:var(--navy);margin:5px 0 3px}
@@ -111,7 +111,7 @@ const { useState } = React;
 
 const SELLER = 'Sean Hughley';
 const FY = 'FY27';
-/* E7 attainment — from MSXi "Target To Go" gauge */
+/* E7 attainment. from MSXi "Target To Go" gauge */
 const E7_TARGET = 8778078;
 const ACTUALS_SCHEDULED = 4148798;
 const CRM = (guid) => `https://microsoftsales.crm.dynamics.com/main.aspx?pagetype=entityrecord&etn=opportunity&id=${guid}`;
@@ -124,24 +124,24 @@ const STRAT = {
   chrobinson: 'https://seanhughley12.github.io/CHR.Polaris.Sriva/',
 };
 
-/* ═══ DEALS — E7 / Copilot only, from MSX. prob + comment summarized from CRM forecast.
+/* ═══ DEALS. E7 / Copilot only, from MSX. prob + comment summarized from CRM forecast.
    Win Probability is parsed from each opp's forecast comment. Autoliv set HiPo for this
    exercise; all others Low (per Sean). ═══ */
 const deals = [
-  { name: 'MSC — 73K Seats, The AI Platform', acct: 'msc', brand: '#13477e', guid: '65aaeb01-1c76-f111-ab0f-7ced8dda43b8', value: 4412101, bm: 6, qm: 12, dealType: 'Mid-term', seats: 62021, close: 'Jan 20', prob: 'low',
-    comment: 'Sept 25 E7/Agent 365 discussion with MSC security + IT; centralized agent-governance need validated and now tied to FinOps/cost predictability. Use the October Geneva engagement to quantify the E7 path. E7 still uncommitted — consumption economics the blocker.' },
-  { name: 'CH Robinson — 12,020 Seats', acct: 'chrobinson', brand: '#0a7d3a', guid: '3cc8156b-1d76-f111-ab0f-7ced8dda43b8', value: 2307840, bm: 12, qm: 12, dealType: 'Full-term', seats: 12020, close: 'Mar 18', prob: 'low',
+  { name: 'MSC · 73K Seats, The AI Platform', acct: 'msc', brand: '#13477e', guid: '65aaeb01-1c76-f111-ab0f-7ced8dda43b8', value: 4412101, bm: 6, qm: 12, dealType: 'Mid-term', seats: 62021, close: 'Jan 20', prob: 'low',
+    comment: 'Sept 25 E7/Agent 365 discussion with MSC security + IT; centralized agent-governance need validated and now tied to FinOps/cost predictability. Use the October Geneva engagement to quantify the E7 path. E7 still uncommitted. consumption economics the blocker.' },
+  { name: 'CH Robinson · 12,020 Seats', acct: 'chrobinson', brand: '#0a7d3a', guid: '3cc8156b-1d76-f111-ab0f-7ced8dda43b8', value: 2307840, bm: 12, qm: 12, dealType: 'Full-term', seats: 12020, close: 'Mar 18', prob: 'low',
     comment: 'On 9/17 pitched E7 at $16/user vs ~$30 today across ~1,000 Copilot licenses. CTO Mike Neill / Terry Bigaouette did not reject; asked if $16 is volume-contingent on 80%+ coverage. Next: lock the volume construct. Risk: CHR DIY control plane may blunt urgency.' },
-  { name: 'Autoliv — E7 Step-up (Anniversary)', acct: 'autoliv', brand: '#005495', guid: '512dda65-c773-f111-ab0f-000d3a162e2d', value: 1374504, bm: 4, qm: 16, dealType: 'Anniversary (FY27)', seats: 18080, close: 'Dec 1', prob: 'high',
+  { name: 'Autoliv · E7 Step-up (Anniversary)', acct: 'autoliv', brand: '#005495', guid: '512dda65-c773-f111-ab0f-000d3a162e2d', value: 1374504, bm: 4, qm: 16, dealType: 'Anniversary (FY27)', seats: 18080, close: 'Dec 1', prob: 'high',
     comment: '9/25: interest confirmed but no support yet for 80% coverage; customer building a lower-commitment counter-proposal. Bob Hale pulled the step-up from technical eval into a commercial offer with Ina Epure and Ciprian David. Risk: deployment-first, no Purview foundation to risk-score agents.' },
   { name: 'W2W E7 Step-up (Sirva)', acct: null, brand: '#5a6b80', guid: '65ab5020-74a8-f111-b8de-000d3a8cec07', value: 1000320, bm: 12, qm: 12, dealType: 'Full-term', seats: 4168, close: 'Apr 1', prob: 'low',
     comment: 'Sirva. Invites finalized: AI/Agentic Discovery 10/5, Executive Presentation 11/2; pivoting to the Frontier Firm story. Governance/security work with Mike Garza underway. Early stage, low win prob; Sirva headwinds could stall.' },
-  { name: 'Smiths — E7 Step-up (Mid-term)', acct: 'smiths', brand: '#0a2540', guid: 'fa5f22c1-9674-f111-ab0f-000d3a162e2d', value: 761319, bm: 6, qm: 12, dealType: 'Mid-term', seats: 12050, close: 'Jan 1', prob: 'low',
+  { name: 'Smiths · E7 Step-up (Mid-term)', acct: 'smiths', brand: '#0a2540', guid: 'fa5f22c1-9674-f111-ab0f-000d3a162e2d', value: 761319, bm: 6, qm: 12, dealType: 'Mid-term', seats: 12050, close: 'Jan 1', prob: 'low',
     comment: 'No E7 step-up motion this window; 9/21 Connect scoped to divestitures and the July 2027 EA renewal. 9/9 approved a limited Copilot Cowork POC. Next: deliver China Copilot Chat / M1115 liability guidance to Jason Rea to unblock the rollout, then reopen Agent 365.' },
-  { name: 'Echo Global — E7 Step-up (Anniversary)', acct: 'echo', brand: '#00843d', guid: '46ab0baa-d773-f111-ab0f-000d3a162e2d', value: 510747, bm: 12, qm: 12, dealType: 'Anniversary (FY28)', seats: 4042, close: 'Apr 1', prob: 'low',
+  { name: 'Echo Global · E7 Step-up (Anniversary)', acct: 'echo', brand: '#00843d', guid: '46ab0baa-d773-f111-ab0f-000d3a162e2d', value: 510747, bm: 12, qm: 12, dealType: 'Anniversary (FY28)', seats: 4042, close: 'Apr 1', prob: 'low',
     comment: 'Little E7 activity; Echo focused on the Fastmore/ITS/RoadTex tenant consolidation ahead of the Oct 1 echo.com cutover. October Business Review scheduled with an Entra Suite buying discussion. Risk: consolidation resets the seat baseline.' },
-  { name: 'Harley-Davidson — E7 Step-up (Renewal)', acct: 'harley', brand: '#f6861f', guid: '4ef033e2-d873-f111-ab0f-000d3a162e2d', value: 342000, bm: 12, qm: 12, dealType: 'Renewal', seats: 6000, close: 'May 1', prob: 'low',
-    comment: '9/21 Agent Capability Deep Dive for a full Harley bench; strong governance engagement (Agent 365 as control plane, Purview/E5 tie-in) but hard pushback on cost — Chad Aron challenged token/API economics, Justin Knauer flagged no spend cap on PAYG.' },
+  { name: 'Harley-Davidson · E7 Step-up (Renewal)', acct: 'harley', brand: '#f6861f', guid: '4ef033e2-d873-f111-ab0f-000d3a162e2d', value: 342000, bm: 12, qm: 12, dealType: 'Renewal', seats: 6000, close: 'May 1', prob: 'low',
+    comment: '9/21 Agent Capability Deep Dive for a full Harley bench; strong governance engagement (Agent 365 as control plane, Purview/E5 tie-in) but hard pushback on cost. Chad Aron challenged token/API economics, Justin Knauer flagged no spend cap on PAYG.' },
 ];
 
 const hours = [
@@ -186,7 +186,7 @@ function App() {
           <p>The whole patch on one page: target vs. pipeline, net-new Copilot seats, which deals decide the number, and where the time goes. Every deal links to its strategy page and its CRM record.</p>
         </div>
 
-        <div className="section-title">E7 Quota Attainment <span className="hint">quota retirement basis — how Sean &amp; Jason are paid</span></div>
+        <div className="section-title">E7 Quota Attainment <span className="hint">quota retirement basis. how Sean &amp; Jason are paid</span></div>
         <div className="variance">
           <div className="vcard target">
             <div className="vlbl">E7 Quota Target</div>
@@ -212,9 +212,8 @@ function App() {
           </div>
         </div>
         <div className="dual-note">
-          <div className="dual-cell"><span className="dual-lbl">Total Quota Retirement (open pipeline)</span><b>{fmt(totalQuota)}</b><small>what retires quota — Sean &amp; Jason are paid on this</small></div>
-          <div className="dual-cell"><span className="dual-lbl">Total Billed (open pipeline)</span><b>{fmt(totalBilled)}</b><small>co-term invoiced revenue — what upper leadership tracks</small></div>
-          <div className="dual-cell"><span className="dual-lbl">Other Pipeline Coverage</span><b>{fmt(otherQuota)}</b><small>quota from Low-probability deals</small></div>
+          <div className="dual-cell"><span className="dual-lbl">Open Pipeline · Quota Retirement</span><b>{fmt(totalQuota)}</b><small>Total quota the 7 open E7 deals retire if they all close. This is what Sean and Jason are paid on, and it is {(totalQuota / targetToGo).toFixed(1)}x the {fmt(targetToGo)} still needed.</small></div>
+          <div className="dual-cell plain"><span className="dual-lbl">Open Pipeline · Billed</span><b>{fmt(totalBilled)}</b><small>Co-term invoiced revenue from the same 7 deals. This is the number upper leadership tracks.</small></div>
         </div>
 
         <div className="seats-hero">
@@ -237,7 +236,7 @@ function App() {
                 <div className="hc-sum">{list.length} deals · {fmt(sumQ)} quota</div>
                 {list.map((d, i) => (
                   <a className="hipo-chip" style={{ '--brand': d.brand }} key={i} href={d.acct && STRAT[d.acct] ? STRAT[d.acct] : CRM(d.guid)} target="_blank" rel="noreferrer">
-                    <div className="hc-top"><span className="hc-name">{d.name.split(' — ')[0]}</span><span className="hc-val">{fmt(quotaOf(d))}</span></div>
+                    <div className="hc-top"><span className="hc-name">{d.name.split(' · ')[0]}</span><span className="hc-val">{fmt(quotaOf(d))}</span></div>
                     <div className="hc-meta">{fmt(d.value)} billed · {fmtK(d.seats)} seats · {d.close}</div>
                   </a>
                 ))}
@@ -255,7 +254,7 @@ function App() {
               {deals.map((d, i) => (
                 <React.Fragment key={i}>
                   <tr className="deal-main">
-                    <td><div className="deal-name">{d.name.split(' — ')[0]}</div><div className="deal-sub">{d.name.indexOf(' — ') >= 0 ? d.name.split(' — ')[1] : ''}</div></td>
+                    <td><div className="deal-name">{d.name.split(' · ')[0]}</div><div className="deal-sub">{d.name.indexOf(' · ') >= 0 ? d.name.split(' · ')[1] : ''}</div></td>
                     <td><span className={`prob-pill ${probMeta[d.prob][1]}`}>{probMeta[d.prob][0]}</span></td>
                     <td className="num">{fmt(d.value)}<div className="num-sub">{d.bm} mo</div></td>
                     <td className="num num-quota">{fmt(quotaOf(d))}<div className="num-sub">{d.qm} mo · {d.dealType}</div></td>
@@ -288,7 +287,7 @@ function App() {
         </div>
 
         <div className="foot">
-          Internal Microsoft GTM. Pipeline and seats pulled live from MSX (Copilot-inclusive E7 SKU only). Win probability is an inference to confirm with {SELLER}. E7 quota is an MSXi scorecard allocation — set it in config to show coverage and gap. Not for external distribution.
+          Internal Microsoft GTM. Pipeline and seats pulled live from MSX (Copilot-inclusive E7 SKU only). Win probability is read from each deal's CRM forecast comment. Confirm with {SELLER}. E7 quota is an MSXi scorecard allocation. set it in config to show coverage and gap. Not for external distribution.
         </div>
       </div>
     </>
