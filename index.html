@@ -56,6 +56,32 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--i
 .dcell b{display:block;font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:var(--navy);margin:5px 0 3px}
 .dcell.q b{color:var(--blue)}
 .dcell small{font-size:12px;color:var(--muted)}
+/* pacing */
+.pacing{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.pcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 16px 14px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.pcard.fill{border-color:#d97706;border-width:2px;background:#fffaf0}
+.pcard.covered{background:#f2fbf5}
+.pcard.fill.covered{background:#fffaf0}
+.pc-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.pc-head b{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--navy)}
+.pc-tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#fff;background:#d97706;padding:3px 7px;border-radius:20px;white-space:nowrap}
+.pc-tag.ok{background:#16a34a}
+.pc-target{font-size:12px;color:var(--muted);margin:3px 0 8px;font-weight:600}
+.pc-bar{position:relative;height:8px;border-radius:6px;background:#eef1f5;overflow:hidden;display:flex}
+.pc-banked{background:var(--navy);height:100%}
+.pc-proj{background:#9ec5fe;height:100%}
+.pcard.fill .pc-proj{background:#fbbf77}
+.pc-nums{display:flex;justify-content:space-between;font-size:11px;margin:6px 0 10px;color:var(--muted);font-weight:600}
+.pc-nums .ok{color:#16a34a}.pc-nums .gap{color:#d97706}
+.pc-lands{display:flex;flex-direction:column;gap:5px;flex:1;border-top:1px solid var(--border);padding-top:9px}
+.pc-land{font-size:11.5px;color:var(--navy);display:flex;align-items:center;gap:6px}
+.pc-land.muted{color:var(--muted);font-style:italic}
+.pc-amt{margin-left:auto;font-weight:700;font-variant-numeric:tabular-nums}
+.pc-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.pc-dot.high{background:#16a34a}.pc-dot.med{background:#d97706}.pc-dot.low{background:#cbd2da}
+.pc-gap{font-size:11.5px;color:#d97706;font-weight:600;margin-top:10px;border-top:1px dashed var(--border);padding-top:8px}
+.pc-gap.ok{color:#16a34a}
+.pc-gap b{font-weight:800}
 /* seats */
 .seats-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px}
 .seat-card{border-radius:16px;padding:26px 30px}
@@ -132,7 +158,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--i
 .pct-under{background:#eef2f7;color:var(--muted);font-weight:800;padding:2px 8px;border-radius:999px;font-size:12px}
 .wa-note{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.5}
 .foot{color:var(--muted);font-size:12.5px;margin-top:40px;line-height:1.6;border-top:1px solid var(--border);padding-top:18px}
-@media(max-width:900px){.fc,.dual,.wa-hero,.seats-row,.insights,.hipo{grid-template-columns:1fr}.wrap{padding:24px}.seat-num,.wa-big-card .wv{font-size:42px}}
+@media(max-width:900px){.fc,.dual,.wa-hero,.seats-row,.insights,.hipo,.pacing{grid-template-columns:1fr}.wrap{padding:24px}.seat-num,.wa-big-card .wv{font-size:42px}}
 </style>
 </head>
 <body>
@@ -166,6 +192,27 @@ const BUCKETS = [
 const WA_QUARTERS = ['Q1', 'Q2']; // quarters with real focus data
 const CURRENT_Q = 'Q2';
 
+/* ═══ QUARTERLY PACING — forecast landing by quarter. Autoliv splits: co-term lands Q2,
+   the 12-month renewal lands Q4 at the May 1 anniversary. MSC assumed 12 months (mid-term credit).
+   base = actuals already banked/scheduled per the DBF screenshots. ═══ */
+const PACING = {
+  Q1: { label: 'Q1 · Jul-Sep', target: 4579594, banked: 2705737, lands: [] },
+  Q2: { label: 'Q2 · Oct-Dec', target: 3674739, banked: 5852664, lands: [
+    { name: 'Autoliv co-term', amt: 1374504, acct: 'autoliv', prob: 'high' },
+  ] },
+  Q3: { label: 'Q3 · Jan-Mar', target: 8804186, banked: 2491194, lands: [
+    { name: 'MSC (12-mo, mid-term credit)', amt: 8824200, acct: 'msc', prob: 'med' },
+    { name: 'CH Robinson', amt: 2307840, acct: 'chrobinson', prob: 'low' },
+    { name: 'Smiths', amt: 761319, acct: 'smiths', prob: 'low' },
+  ] },
+  Q4: { label: 'Q4 · Apr-Jun', target: 2832635, banked: 222984, lands: [
+    { name: 'Autoliv renewal (12-mo)', amt: 4123512, acct: 'autoliv', prob: 'high' },
+    { name: 'W2W / Sirva', amt: 1000320, acct: null, prob: 'low' },
+    { name: 'Echo', amt: 510747, acct: 'echo', prob: 'low' },
+    { name: 'Harley', amt: 342000, acct: 'harley', prob: 'low' },
+  ] },
+};
+
 const CRM = (guid) => `https://microsoftsales.crm.dynamics.com/main.aspx?pagetype=entityrecord&etn=opportunity&id=${guid}`;
 const STRAT = {
   autoliv: 'https://seanhughley12.github.io/Autoliv.Harley.Smiths.Echo/autoliv/',
@@ -178,8 +225,8 @@ const STRAT = {
 
 const deals = [
   { name: 'MSC · 73K Seats, The AI Platform', acct: 'msc', brand: '#13477e', guid: '65aaeb01-1c76-f111-ab0f-7ced8dda43b8',
-    billed: 4412101, monthly: 735350, fyMonths: 6, confirm: false, seats: 62021, close: 'Jan 20', prob: 'med',
-    comment: 'Sept 25 E7/Agent 365 discussion with MSC security and IT. Deck is now a CFO capital-allocation story: 71K fleet at $13, 96.2% absorbed. Anniversary Jul 1 so only the 6 co-term months retire in FY27.' },
+    billed: 4412101, monthly: 735350, fyMonths: 12, confirm: true, seats: 62021, close: 'Jan 20', prob: 'med',
+    comment: 'Sept 25 E7/Agent 365 discussion with MSC security and IT. Deck is now a CFO capital-allocation story: 71K fleet at $13, 96.2% absorbed. Assuming mid-term credit retires a full 12 months of quota; co-term billed is 6 months ($4.41M).' },
   { name: 'CH Robinson · 12,020 Seats', acct: 'chrobinson', brand: '#0a7d3a', guid: '3cc8156b-1d76-f111-ab0f-7ced8dda43b8',
     billed: 2307840, monthly: 192320, fyMonths: 12, confirm: true, seats: 12020, close: 'Mar 18', prob: 'low',
     comment: 'On 9/17 pitched E7 at $16/user vs ~$30 today across ~1,000 Copilot licenses. CTO Mike Neill and Terry Bigaouette asked if $16 is volume-contingent on 80%+ coverage. Next: lock the volume construct.' },
@@ -272,12 +319,12 @@ function App() {
 
         <div className="exec">
           <div className="exec-kick">Patch Strategy</div>
-          <h2>The patch is tracking to plan. {fmt(dbf.actuals)} of a {fmt(dbf.target)} {q === 'FY' ? 'full-year' : q} target is already actuals or scheduled, and Autoliv (HiPo) is the swing that closes the gap. The job now is converting upside to commit.</h2>
-          <p>Forecast and billed revenue are what the business reports. Weighted attainment is how comp pays, and the two buckets this patch drives, AI Workforce and Copilot + Agents, are 70% of that plan. The shared blocker on the medium and low deals is cost and consumption economics, not product fit.</p>
+          <h2>Q2 is already over target on banked revenue. Autoliv is incremental upside on top: close it and its co-term pre-banks Q2 while its renewal lands in Q4, setting up both ends of the year. That leaves one job: fill Q3.</h2>
+          <p>Forecast and billed revenue are what the business reports. Autoliv is the swing deal, and because it splits (co-term to Q2, 12-month renewal to Q4), landing it feeds two quarters at once. Q3 is the gap to close, and MSC at a full 12 months of quota covers most of it. Run the patch quarter by quarter, not just to the annual number.</p>
           <div className="insights">
-            <div className="insight"><div className="ic">The forecast</div><p>{fmt(totalForecast)} of open E7 forecast in the patch, {fmt(totalBilled)} billed co-term. Autoliv alone is {fmt(fyForecast(deals[2]))}.</p></div>
-            <div className="insight"><div className="ic">The seat story</div><p>118K net-new Copilot seats in play. 85% sits in upside. Converting those seats to commit is the growth motion.</p></div>
-            <div className="insight"><div className="ic">The comp tie</div><p>Every E7 deal retires 100% of AI Workforce and 56% of Copilot + Agents. That drives the weighted number below.</p></div>
+            <div className="insight"><div className="ic">Q2 · banked + upside</div><p>TQL and Polaris are banked over target. Autoliv co-term lands on top, pushing Q2 toward 200%.</p></div>
+            <div className="insight"><div className="ic">Q4 · Autoliv carries it</div><p>Autoliv's 12-month renewal hits the May 1 anniversary in Q4, covering that quarter on its own.</p></div>
+            <div className="insight"><div className="ic">Q3 · the one to fill</div><p>$6.3M gap. MSC at 12 months ($8.8M) plus CHR and Smiths fills it. This is where the quarter is won.</p></div>
           </div>
         </div>
 
@@ -310,6 +357,38 @@ function App() {
         <div className="dual">
           <div className="dcell"><span className="dl">Open Pipeline · Billed (co-term)</span><b>{fmt(totalBilled)}</b><small>Invoiced revenue from the open E7 deals. What upper leadership tracks.</small></div>
           <div className="dcell q"><span className="dl">Open Pipeline · FY27 Forecast (≈ quota retirement)</span><b>{fmt(totalForecast)}</b><small>In-fiscal-year revenue that retires quota. What Sean and Jason are paid on.</small></div>
+        </div>
+
+        {/* QUARTERLY PACING */}
+        <div className="section-title">Quarterly Pacing <span className="hint">run the patch quarter by quarter. Banked + where open deals land. Autoliv splits Q2/Q4.</span></div>
+        <div className="pacing">
+          {['Q1', 'Q2', 'Q3', 'Q4'].map((qq) => {
+            const p = PACING[qq];
+            const landSum = p.lands.reduce((t, l) => t + l.amt, 0);
+            const proj = p.banked + landSum;
+            const projPct = Math.round((proj / p.target) * 100);
+            const bankedPct = Math.round((p.banked / p.target) * 100);
+            const gapNow = p.target - p.banked;
+            const isFill = qq === 'Q3';
+            return (
+              <div className={`pcard ${isFill ? 'fill' : ''} ${proj >= p.target ? 'covered' : ''}`} key={qq}>
+                <div className="pc-head"><b>{p.label}</b>{isFill && <span className="pc-tag">Fill this</span>}{!isFill && proj >= p.target && <span className="pc-tag ok">On pace</span>}</div>
+                <div className="pc-target">Target {fmt(p.target)}</div>
+                <div className="pc-bar">
+                  <span className="pc-banked" style={{ width: Math.min(100, bankedPct) + '%' }} />
+                  <span className="pc-proj" style={{ width: Math.min(100 - Math.min(100, bankedPct), Math.max(0, projPct - bankedPct)) + '%' }} />
+                </div>
+                <div className="pc-nums"><span>Banked {fmt(p.banked)}</span><span className={proj >= p.target ? 'ok' : 'gap'}>{projPct}% projected</span></div>
+                <div className="pc-lands">
+                  {p.lands.length ? p.lands.map((l, i) => (
+                    <div className="pc-land" key={i}><span className={`pc-dot ${l.prob}`} />{l.name}<span className="pc-amt">{fmt(l.amt)}</span></div>
+                  )) : <div className="pc-land muted">No open deals land here</div>}
+                </div>
+                {gapNow > 0 && <div className="pc-gap">Gap to target: <b>{fmt(gapNow)}</b></div>}
+                {gapNow <= 0 && <div className="pc-gap ok">Over target by <b>{fmt(-gapNow)}</b></div>}
+              </div>
+            );
+          })}
         </div>
 
         {/* 2 — SEATS */}
