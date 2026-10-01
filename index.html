@@ -29,50 +29,65 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--i
 .section-title .hint{font-size:12px;letter-spacing:0;text-transform:none;color:var(--muted);font-weight:500}
 .exec{background:linear-gradient(135deg,var(--navy),#123a63);color:#fff;border-radius:18px;padding:30px 36px;box-shadow:var(--shadow-lg);margin-top:18px}
 .exec-kick{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-.exec h2{font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:600;line-height:1.4;max-width:80ch}
+.exec h2{font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:600;line-height:1.4;max-width:84ch}
 .exec p{font-size:14px;color:rgba(255,255,255,.82);margin-top:10px;max-width:92ch}
 .insights{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
 .insight{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:14px 16px}
 .insight .ic{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:6px}
 .insight p{font-size:13px;color:#fff;margin:0;line-height:1.45}
-.tracks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px}
-.track{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
-.track.allup{grid-column:1 / -1;background:linear-gradient(135deg,#0d2d4e,#17507f);color:#fff;border-color:transparent}
-.track-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px}
-.track-name{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700}
-.track.allup .track-name{color:#fff}
-.track-tag{font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.4px}
-.tag-e7{background:rgba(0,120,212,.14);color:var(--blue)}
-.tag-cp{background:rgba(92,45,145,.14);color:var(--purple)}
-.tag-all{background:rgba(255,255,255,.18);color:#fff}
-.track-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.tcell .tl{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:700}
-.track.allup .tcell .tl{color:rgba(255,255,255,.7)}
-.tcell .tv{font-family:'Space Grotesk',sans-serif;font-size:23px;font-weight:700;color:var(--navy);margin-top:4px}
-.track.allup .tcell .tv{color:#fff}
-.tcell .tv.togo{color:var(--red)}
-.track.allup .tcell .tv.togo{color:var(--cyan)}
-.progress{height:9px;border-radius:999px;background:var(--border);margin-top:16px;overflow:hidden}
-.track.allup .progress{background:rgba(255,255,255,.18)}
-.progress>span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--blue),var(--cyan))}
-.pct-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:7px;font-weight:600}
-.track.allup .pct-row{color:rgba(255,255,255,.8)}
-.cover-note{font-size:12px;color:var(--muted);margin-top:12px;border-top:1px dashed var(--border);padding-top:10px}
+/* weighted hero */
+.wa-hero{display:grid;grid-template-columns:.9fr 1.1fr;gap:16px;margin-top:4px}
+.wa-big-card{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border-radius:16px;padding:28px 32px;box-shadow:var(--shadow-lg);display:flex;flex-direction:column;justify-content:center}
+.wa-big-card .wl{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan)}
+.wa-big-card .wv{font-family:'Space Grotesk',sans-serif;font-size:64px;font-weight:700;line-height:1;letter-spacing:-2px;margin:6px 0}
+.wa-big-card .ws{font-size:13px;color:rgba(255,255,255,.82);line-height:1.5}
+.wa-proj{display:flex;gap:16px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.2)}
+.wa-proj div{font-size:12px;color:rgba(255,255,255,.75)}
+.wa-proj b{display:block;font-family:'Space Grotesk',sans-serif;font-size:22px;color:#fff;font-weight:700}
+.bk-table{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.bk-table table{width:100%;border-collapse:collapse}
+.bk-table th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:700;padding:12px 14px;border-bottom:2px solid var(--border);background:var(--bg)}
+.bk-table td{padding:12px 14px;border-bottom:1px solid var(--border);font-size:13px}
+.bk-table tr:last-child td{border-bottom:none}
+.bk-row.focus td{background:rgba(0,120,212,.04)}
+.bk-name{font-weight:700;color:var(--navy)}
+.bk-sub{font-size:11px;color:var(--muted)}
+.bk-assume{font-size:10px;font-weight:700;color:var(--amber);background:rgba(224,150,42,.12);padding:2px 7px;border-radius:999px;margin-left:6px}
+.bk-focus-tag{font-size:10px;font-weight:700;color:var(--blue);background:var(--blue-soft);padding:2px 7px;border-radius:999px;margin-left:6px}
+.num{font-family:'Space Grotesk',sans-serif;font-weight:600;text-align:right;white-space:nowrap}
+.pct-over{background:rgba(26,156,91,.14);color:var(--green);font-weight:800;padding:2px 8px;border-radius:999px;font-size:12px}
+.pct-near{background:rgba(224,150,42,.16);color:var(--amber);font-weight:800;padding:2px 8px;border-radius:999px;font-size:12px}
+.pct-under{background:#eef2f7;color:var(--muted);font-weight:800;padding:2px 8px;border-radius:999px;font-size:12px}
+/* dbf lenses */
+.lenses{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.lens{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow)}
+.lens.true{border-color:rgba(0,120,212,.3);background:linear-gradient(135deg,#fff,var(--blue-soft))}
+.lens-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.lens-h b{font-family:'Space Grotesk',sans-serif;font-size:15px;color:var(--navy)}
+.lens-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:3px 9px;border-radius:999px}
+.lens-tag.rep{background:#eef2f7;color:var(--muted)}
+.lens-tag.tru{background:var(--blue-soft);color:var(--blue)}
+.lens-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.lens-cell .ll{font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:700}
+.lens-cell .lv{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--navy);margin-top:3px}
+.lens-cell .lv.togo{color:var(--red)}
+.delta-note{grid-column:1 / -1;margin-top:14px;background:var(--navy);color:#fff;border-radius:10px;padding:14px 18px;font-size:13.5px;line-height:1.5}
+.delta-note b{color:var(--cyan)}
+/* seats */
 .seats-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px}
 .seat-card{border-radius:16px;padding:26px 30px}
 .seat-card.hipo{background:linear-gradient(120deg,var(--navy-deep),var(--blue));color:#fff;box-shadow:var(--shadow-lg)}
 .seat-card.upside{background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow)}
 .seat-kick{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
-.seat-card.hipo .seat-kick{color:var(--cyan)}
-.seat-card.upside .seat-kick{color:var(--muted)}
+.seat-card.hipo .seat-kick{color:var(--cyan)}.seat-card.upside .seat-kick{color:var(--muted)}
 .seat-num{font-family:'Space Grotesk',sans-serif;font-size:52px;font-weight:700;letter-spacing:-1.5px;line-height:1}
 .seat-card.upside .seat-num{color:var(--navy)}
 .seat-desc{font-size:13px;margin-top:10px}
-.seat-card.hipo .seat-desc{color:rgba(255,255,255,.82)}
-.seat-card.upside .seat-desc{color:var(--muted)}
+.seat-card.hipo .seat-desc{color:rgba(255,255,255,.82)}.seat-card.upside .seat-desc{color:var(--muted)}
 .seat-split{display:flex;gap:18px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
 .seat-split div{font-size:12.5px;color:var(--muted)}
 .seat-split b{display:block;font-family:'Space Grotesk',sans-serif;font-size:19px;color:var(--navy);font-weight:700}
+/* hipo + deals */
 .hipo{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .hipo-col{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
 .hipo-col h3{font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:4px}
@@ -90,22 +105,15 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--i
 .deals th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:700;padding:14px 16px;border-bottom:2px solid var(--border);background:var(--bg)}
 .deals td{padding:13px 16px;font-size:13.5px;vertical-align:middle}
 .deal-main td{border-bottom:none;padding-bottom:5px}
-.deal-name{font-weight:600;color:var(--navy)}
-.deal-sub{font-size:12px;color:var(--muted)}
-.num{font-family:'Space Grotesk',sans-serif;font-weight:600;text-align:right;white-space:nowrap}
+.deal-name{font-weight:600;color:var(--navy)}.deal-sub{font-size:12px;color:var(--muted)}
 .num-sub{font-size:11px;color:var(--muted);font-weight:500;margin-top:2px}
 .flag{color:var(--amber);font-weight:700;cursor:help}
 .prob-pill{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:3px 9px;border-radius:999px}
-.prob-high{background:rgba(26,156,91,.14);color:var(--green)}
-.prob-med{background:rgba(224,150,42,.16);color:var(--amber)}
-.prob-low{background:#eef2f7;color:var(--muted)}
+.prob-high{background:rgba(26,156,91,.14);color:var(--green)}.prob-med{background:rgba(224,150,42,.16);color:var(--amber)}.prob-low{background:#eef2f7;color:var(--muted)}
 .links{display:flex;gap:8px;white-space:nowrap}
 .lnk{font-size:12px;font-weight:700;text-decoration:none;padding:6px 11px;border-radius:8px;border:1px solid var(--border)}
-.lnk.strat{color:var(--blue);border-color:rgba(0,120,212,.3)}
-.lnk.strat:hover{background:var(--blue-soft)}
-.lnk.crm{color:var(--muted)}
-.lnk.crm:hover{background:var(--bg)}
-.lnk.off{opacity:.4;pointer-events:none}
+.lnk.strat{color:var(--blue);border-color:rgba(0,120,212,.3)}.lnk.strat:hover{background:var(--blue-soft)}
+.lnk.crm{color:var(--muted)}.lnk.crm:hover{background:var(--bg)}.lnk.off{opacity:.4;pointer-events:none}
 .deal-comment td{padding:0 16px 13px 16px;font-size:12.5px;color:var(--muted);line-height:1.5;border-bottom:1px solid var(--border)}
 .cmt-lbl{font-weight:800;color:var(--navy);font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;margin-right:6px}
 .deal-total td{font-weight:700;border-top:2px solid var(--border);border-bottom:none}
@@ -116,20 +124,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--i
 .hbar-track{flex:1;background:var(--bg);border-radius:8px;height:26px;overflow:hidden}
 .hbar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--navy),var(--blue));display:flex;align-items:center;justify-content:flex-end;padding-right:10px;color:#fff;font-size:11.5px;font-weight:700;min-width:36px}
 .foot{color:var(--muted);font-size:12.5px;margin-top:40px;line-height:1.6;border-top:1px solid var(--border);padding-top:18px}
-.wa{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 26px}
-.wa-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
-.wa-kick{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
-.wa-big{font-family:'Space Grotesk',sans-serif;font-size:40px;font-weight:700;color:var(--navy);line-height:1.1;margin-top:4px}
-.wa-sub{font-size:13px;color:var(--muted);margin-top:6px;max-width:80ch}
-.wa-table{width:100%;border-collapse:collapse;margin-top:4px}
-.wa-table th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:700;padding:10px 12px;border-bottom:2px solid var(--border)}
-.wa-table td{padding:12px;border-bottom:1px solid var(--border);font-size:13.5px}
-.wa-table tr:last-child td{border-bottom:none}
-.pct-over{background:rgba(26,156,91,.14);color:var(--green);font-weight:800;padding:2px 8px;border-radius:999px;font-size:12.5px}
-.pct-near{background:rgba(224,150,42,.16);color:var(--amber);font-weight:800;padding:2px 8px;border-radius:999px;font-size:12.5px}
-.pct-under{background:#eef2f7;color:var(--muted);font-weight:800;padding:2px 8px;border-radius:999px;font-size:12.5px}
-.wa-note{font-size:12px;color:var(--muted);margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;line-height:1.5}
-@media(max-width:900px){.tracks,.seats-row,.insights,.hipo{grid-template-columns:1fr}.wrap{padding:24px}.seat-num{font-size:40px}}
+@media(max-width:900px){.wa-hero,.lenses,.seats-row,.insights,.hipo{grid-template-columns:1fr}.wrap{padding:24px}.seat-num,.wa-big-card .wv{font-size:42px}}
 </style>
 </head>
 <body>
@@ -139,19 +134,33 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--i
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
 const { useState } = React;
-
 const SELLER = 'Sean Hughley';
 const FY = 'FY27';
-const COPILOT_FACTOR = 0.56;
-/* Comp plan weights per earning bucket (fraction of plan). null until Sean confirms
-   from his MSX incentive view. When set, a single weighted-attainment % is computed. */
-const COMP_WEIGHTS = { aiw: null, cpa: null };
+const COPILOT_FACTOR = 0.56; // an E7 deal retires 100% of AI Workforce and 56% of Copilot + Agents
 
-const TRACKS = {
-  e7:     { name: 'E7 / M365 Suite', tag: 'tag-e7', target: 8778078,  actual: 6891,    scheduled: 4141908, togo: 4629280, upside: 4912344 },
-  copilot:{ name: 'M365 Copilot',    tag: 'tag-cp', target: 6789546,  actual: 2693312, scheduled: 1110674, togo: 2985560, upside: 1358647 },
-  allup:  { name: 'AI Workforce (all-up)', tag: 'tag-all', target: 15567624, actual: 2700203, scheduled: 5252581, togo: 7614840, upside: 6270990 },
+/* ═══ COMP BUCKETS — weights from MSX Earnings. Sean focuses on E7 + Copilot (70% of plan).
+   Usage + Virtualization are held at Sean's assumptions (not his focus). ═══ */
+const BUCKETS = [
+  { key: 'aiw',   name: 'AI Workforce Cloud (w/ES)', weight: 0.40, focus: true,  retires: '100% of E7 quota',
+    q: { Q1: 104.56, Q2: 91.47 } },
+  { key: 'cop',   name: 'Copilot + Agents',          weight: 0.30, focus: true,  retires: '56% of E7 quota',
+    q: { Q1: 68.25, Q2: 87.74 } },
+  { key: 'usage', name: 'Copilot + Agent Usage',     weight: 0.15, focus: false, assume: 120,
+    q: { Q1: 145.10, Q2: 116.23 } },
+  { key: 'virt',  name: 'Virtualization',            weight: 0.15, focus: false, assume: 100,
+    q: { Q1: 73.58, Q2: 0 } },
+];
+
+/* ═══ ALL-UP DBF by quarter (with E7 security). Foots to FY exactly. ═══ */
+const DBF = {
+  FY: { target: 19891155, actuals: 11272578 },
+  Q1: { target: 4579594,  actuals: 2705737 },
+  Q2: { target: 3674739,  actuals: 5852664 },
+  Q3: { target: 8804186,  actuals: 2491194 },
+  Q4: { target: 2832635,  actuals: 222984 },
 };
+/* MSXi-reported FY (security excluded) for the two-lens comparison */
+const DBF_REPORTED_FY = { target: 15567624, actuals: 7952784 };
 
 const CRM = (guid) => `https://microsoftsales.crm.dynamics.com/main.aspx?pagetype=entityrecord&etn=opportunity&id=${guid}`;
 const STRAT = {
@@ -165,26 +174,26 @@ const STRAT = {
 
 const deals = [
   { name: 'MSC · 73K Seats, The AI Platform', acct: 'msc', brand: '#13477e', guid: '65aaeb01-1c76-f111-ab0f-7ced8dda43b8',
-    billed: 4412101, bm: 6, monthly: 735350, fyMonths: 6, confirm: false, seats: 62021, close: 'Jan 20', prob: 'med',
-    comment: 'Sept 25 E7/Agent 365 discussion with MSC security and IT. Centralized agent-governance need validated and tied to FinOps and cost predictability. Use the October Geneva engagement to quantify the E7 path. Anniversary is July 1, so only the 6 co-term months retire in FY27; the renewal retires next fiscal.' },
+    billed: 4412101, monthly: 735350, fyMonths: 6, confirm: false, seats: 62021, close: 'Jan 20', prob: 'med',
+    comment: 'Sept 25 E7/Agent 365 discussion with MSC security and IT. Agent-governance need validated and tied to FinOps and cost predictability. Deck is now a CFO capital-allocation story: 71K fleet at $13, 96.2% absorbed. Anniversary Jul 1 so only the 6 co-term months retire in FY27.' },
   { name: 'CH Robinson · 12,020 Seats', acct: 'chrobinson', brand: '#0a7d3a', guid: '3cc8156b-1d76-f111-ab0f-7ced8dda43b8',
-    billed: 2307840, bm: 12, monthly: 192320, fyMonths: 12, confirm: true, seats: 12020, close: 'Mar 18', prob: 'low',
-    comment: 'On 9/17 pitched E7 at $16/user vs ~$30 today across ~1,000 Copilot licenses. CTO Mike Neill and Terry Bigaouette did not reject; asked if $16 is volume-contingent on 80%+ coverage. Next: lock the volume construct. Risk: CHR DIY control plane may blunt urgency.' },
+    billed: 2307840, monthly: 192320, fyMonths: 12, confirm: true, seats: 12020, close: 'Mar 18', prob: 'low',
+    comment: 'On 9/17 pitched E7 at $16/user vs ~$30 today across ~1,000 Copilot licenses. CTO Mike Neill and Terry Bigaouette asked if $16 is volume-contingent on 80%+ coverage. Next: lock the volume construct.' },
   { name: 'Autoliv · E7 Step-up (Anniversary)', acct: 'autoliv', brand: '#005495', guid: '512dda65-c773-f111-ab0f-000d3a162e2d',
-    billed: 1374504, bm: 4, monthly: 343626, fyMonths: 16, confirm: false, seats: 18080, close: 'Dec 1', prob: 'high',
-    comment: '9/25: interest confirmed but no support yet for 80% coverage; customer building a lower-commitment counter-proposal. Bob Hale pulled the step-up from technical eval into a commercial offer with Ina Epure and Ciprian David. Anniversary April 2027 is in FY27, so all 16 months (4 co-term + 12 renewal) retire this year.' },
+    billed: 1374504, monthly: 343626, fyMonths: 16, confirm: false, seats: 18080, close: 'Dec 1', prob: 'high',
+    comment: '9/25: interest confirmed but no support yet for 80% coverage; customer building a lower-commitment counter-proposal. Bob Hale pulled the step-up into a commercial offer. Anniversary April 2027 is in FY27, so all 16 months retire this year.' },
   { name: 'W2W E7 Step-up (Sirva)', acct: null, brand: '#5a6b80', guid: '65ab5020-74a8-f111-b8de-000d3a8cec07',
-    billed: 1000320, bm: 12, monthly: 83360, fyMonths: 12, confirm: true, seats: 4168, close: 'Apr 1', prob: 'low',
-    comment: 'Sirva. Invites finalized: AI/Agentic Discovery 10/5, Executive Presentation 11/2; pivoting to the Frontier Firm story. Governance and security work with Mike Garza underway. Early stage, low win prob; Sirva headwinds could stall.' },
+    billed: 1000320, monthly: 83360, fyMonths: 12, confirm: true, seats: 4168, close: 'Apr 1', prob: 'low',
+    comment: 'Sirva. Invites finalized: AI/Agentic Discovery 10/5, Executive Presentation 11/2; pivoting to the Frontier Firm story. Early stage, low win prob.' },
   { name: 'Smiths · E7 Step-up (Mid-term)', acct: 'smiths', brand: '#0a2540', guid: 'fa5f22c1-9674-f111-ab0f-000d3a162e2d',
-    billed: 761319, bm: 6, monthly: 126887, fyMonths: 6, confirm: true, seats: 12050, close: 'Jan 1', prob: 'low',
-    comment: 'No E7 step-up motion this window; 9/21 Connect scoped to divestitures and the July 2027 EA renewal. 9/9 approved a limited Copilot Cowork POC. Mid-term credit trues up at the July 2027 anniversary, so only the co-term months count in FY27.' },
+    billed: 761319, monthly: 126887, fyMonths: 6, confirm: true, seats: 12050, close: 'Jan 1', prob: 'low',
+    comment: 'No E7 step-up motion this window; 9/21 Connect scoped to divestitures and the July 2027 EA renewal. Mid-term credit trues up at the July 2027 anniversary, so only the co-term months count in FY27.' },
   { name: 'Echo Global · E7 Step-up (Anniversary)', acct: 'echo', brand: '#00843d', guid: '46ab0baa-d773-f111-ab0f-000d3a162e2d',
-    billed: 510747, bm: 12, monthly: 42562, fyMonths: 12, confirm: true, seats: 4042, close: 'Apr 1', prob: 'low',
-    comment: 'Little E7 activity; Echo focused on the Fastmore/ITS/RoadTex tenant consolidation ahead of the Oct 1 echo.com cutover. October Business Review scheduled with an Entra Suite buying discussion. Fiscal timing needs confirmation (Apr 1 close vs Apr 2028 anniversary).' },
+    billed: 510747, monthly: 42562, fyMonths: 12, confirm: true, seats: 4042, close: 'Apr 1', prob: 'low',
+    comment: 'Little E7 activity; Echo focused on the Fastmore/ITS/RoadTex tenant consolidation ahead of the Oct 1 cutover. October Business Review scheduled with an Entra Suite buying discussion.' },
   { name: 'Harley-Davidson · E7 Step-up (Renewal)', acct: 'harley', brand: '#f6861f', guid: '4ef033e2-d873-f111-ab0f-000d3a162e2d',
-    billed: 342000, bm: 12, monthly: 28500, fyMonths: 12, confirm: true, seats: 6000, close: 'May 1', prob: 'low',
-    comment: '9/21 Agent Capability Deep Dive for a full Harley bench; strong governance engagement (Agent 365 as control plane, Purview/E5 tie-in) but hard pushback on cost. Chad Aron challenged token/API economics, Justin Knauer flagged no spend cap on PAYG.' },
+    billed: 342000, monthly: 28500, fyMonths: 12, confirm: true, seats: 6000, close: 'May 1', prob: 'low',
+    comment: '9/21 Agent Capability Deep Dive for a full Harley bench; strong governance engagement but hard pushback on cost. Chad Aron challenged token/API economics, Justin Knauer flagged no spend cap on PAYG.' },
 ];
 
 const hours = [
@@ -195,63 +204,45 @@ const hours = [
 const fmt = (n) => n >= 1e6 ? '$' + (n / 1e6).toFixed(2) + 'M' : '$' + Math.round(n / 1e3) + 'K';
 const fmtK = (n) => n.toLocaleString();
 const fyForecast = (d) => Math.round(d.monthly * d.fyMonths);
-const pctCls = (r) => r >= 1 ? 'pct-over' : (r >= 0.8 ? 'pct-near' : 'pct-under');
-
-function Track({ t, cover }) {
-  const attained = t.actual + t.scheduled;
-  const pct = Math.round((attained / t.target) * 100);
-  const isAll = t.tag === 'tag-all';
-  return (
-    <div className={`track ${isAll ? 'allup' : ''}`}>
-      <div className="track-head">
-        <span className="track-name">{t.name}</span>
-        <span className={`track-tag ${t.tag}`}>{isAll ? 'Combined' : 'Quota'}</span>
-      </div>
-      <div className="track-grid">
-        <div className="tcell"><div className="tl">Target</div><div className="tv">{fmt(t.target)}</div></div>
-        <div className="tcell"><div className="tl">Actuals + Scheduled</div><div className="tv">{fmt(attained)}</div></div>
-        <div className="tcell"><div className="tl">Target To Go</div><div className="tv togo">{fmt(t.togo)}</div></div>
-      </div>
-      <div className="progress"><span style={{ width: Math.min(100, pct) + '%' }} /></div>
-      <div className="pct-row"><span>{pct}% attained</span><span>{fmt(t.togo)} to go</span></div>
-      {cover != null && <div className="cover-note">Open pipeline forecast toward this quota: <b>{fmt(cover)}</b> ({(cover / t.togo).toFixed(1)}x the gap). Upside pipeline {fmt(t.upside)}.</div>}
-    </div>
-  );
-}
+const pctCls = (p) => p >= 100 ? 'pct-over' : (p >= 80 ? 'pct-near' : 'pct-under');
 
 function App() {
-  const [q, setQ] = useState('FY');
+  const [q, setQ] = useState('Q2'); // current quarter
   const probMeta = { high: ['HiPo', 'prob-high', 'dot high'], med: ['Medium', 'prob-med', 'dot med'], low: ['Low', 'prob-low', 'dot low'] };
   const byProb = (p) => deals.filter((d) => d.prob === p);
   const maxHours = Math.max.apply(null, hours.map((h) => h.n));
 
-  const fcTotal = deals.reduce((t, d) => t + fyForecast(d), 0);
-  const coverE7 = fcTotal;
-  const coverCp = Math.round(fcTotal * COPILOT_FACTOR);
-
-  // Weighted attainment / comp buckets. Each open deal's quota revenue retires
-  // 100% into AI Workforce and 56% into Copilot & Agents (plus other buckets TBD).
-  const fcBy = (p) => deals.filter((d) => d.prob === p).reduce((t, d) => t + fyForecast(d), 0);
-  const fcHiPo = fcBy('high');
-  const fcMed = fcBy('med');
-  const BUCKETS = [
-    { key: 'aiw', name: 'AI Workforce', factor: 1.00, target: TRACKS.allup.target, attained: TRACKS.allup.actual + TRACKS.allup.scheduled, weight: COMP_WEIGHTS.aiw },
-    { key: 'cpa', name: 'Copilot & Agents', factor: COPILOT_FACTOR, target: TRACKS.copilot.target, attained: TRACKS.copilot.actual + TRACKS.copilot.scheduled, weight: COMP_WEIGHTS.cpa },
-  ];
-  const bucketRows = BUCKETS.map((b) => {
-    const now = b.attained / b.target;
-    const withHiPo = (b.attained + fcHiPo * b.factor) / b.target;
-    const withMed = (b.attained + (fcHiPo + fcMed) * b.factor) / b.target;
-    const withAll = (b.attained + fcTotal * b.factor) / b.target;
-    return { ...b, now, withHiPo, withMed, withAll };
-  });
-  const weightsSet = BUCKETS.every((b) => b.weight != null);
-  const weighted = (sel) => weightsSet ? bucketRows.reduce((t, b) => t + b.weight * b[sel], 0) : null;
+  // bucket attainment for the selected quarter (focus buckets use real; others use Sean's assumption)
+  const bucketNow = (b) => b.focus ? (b.q[q] != null ? b.q[q] : 0) : b.assume;
+  const weightedNow = BUCKETS.reduce((t, b) => t + b.weight * bucketNow(b), 0);
+  // projection: add HiPo / all open forecast into the two focus buckets
+  const dbf = DBF[q] || DBF.FY;
+  const fcHiPo = deals.filter((d) => d.prob === 'high').reduce((t, d) => t + fyForecast(d), 0);
+  const fcAll = deals.reduce((t, d) => t + fyForecast(d), 0);
+  const lift = (extra) => {
+    // extra revenue lifts AIW at 100% and Copilot at 56%, as a share of the quarter target
+    const aiwLift = (extra / dbf.target) * 100;
+    const copLift = (extra * COPILOT_FACTOR / dbf.target) * 100;
+    let w = 0;
+    for (const b of BUCKETS) {
+      let a = bucketNow(b);
+      if (b.key === 'aiw') a += aiwLift;
+      if (b.key === 'cop') a += copLift;
+      w += b.weight * a;
+    }
+    return w;
+  };
+  const weightedHiPo = lift(fcHiPo);
+  const weightedAll = lift(fcAll);
 
   const seatsHiPo = deals.filter((d) => d.prob === 'high').reduce((t, d) => t + d.seats, 0);
   const seatsMed = deals.filter((d) => d.prob === 'med').reduce((t, d) => t + d.seats, 0);
   const seatsLow = deals.filter((d) => d.prob === 'low').reduce((t, d) => t + d.seats, 0);
   const seatsUpside = seatsMed + seatsLow;
+
+  const repTogo = Math.max(0, DBF_REPORTED_FY.target - DBF_REPORTED_FY.actuals);
+  const truTogo = Math.max(0, DBF.FY.target - DBF.FY.actuals);
+  const deltaTarget = DBF.FY.target - DBF_REPORTED_FY.target;
 
   const DealLinks = ({ d }) => (
     <div className="links">
@@ -265,11 +256,11 @@ function App() {
       <div className="top">
         <div className="top-brand"><span className="mark">E7</span> E7 &amp; Copilot · GTM</div>
         <div className="top-right">
-          <div className="qfilter"><span>View</span>
+          <div className="qfilter"><span>Period</span>
             <select value={q} onChange={(e) => setQ(e.target.value)}>
               <option value="FY">Full Year</option>
-              <option value="Q1">Q1</option><option value="Q2">Q2</option>
-              <option value="Q3">Q3</option><option value="Q4">Q4</option>
+              <option value="Q1">Q1 (Jul-Sep)</option><option value="Q2">Q2 (Oct-Dec) · current</option>
+              <option value="Q3">Q3 (Jan-Mar)</option><option value="Q4">Q4 (Apr-Jun)</option>
             </select>
           </div>
           <span>{SELLER} · {FY}</span><span className="badge">INTERNAL</span>
@@ -277,55 +268,72 @@ function App() {
       </div>
       <div className="wrap">
         <div className="page-head">
-          <div className="page-eyebrow">Go-to-Market Rollup · {FY}{q !== 'FY' ? ' · ' + q : ''}</div>
+          <div className="page-eyebrow">Go-to-Market Rollup · {FY} · {q === 'FY' ? 'Full Year' : q}</div>
           <h1>E7 &amp; Copilot Patch</h1>
         </div>
 
         <div className="exec">
           <div className="exec-kick">Patch Strategy</div>
-          <h2>Coverage exists, conviction does not. $7.6M to go against a combined $15.6M target, with $14.8M of open forecast behind it, but only Autoliv carries HiPo conviction today. The half is won by converting upside into commit, not by sourcing more pipeline.</h2>
-          <p>The shared blocker across MSC, CH Robinson, and Harley is cost and consumption economics, not product fit. The unlock is a single FinOps plus Agent 365 governance proof that makes E7 spend predictable. Land that, and the medium and low deals move to commit together.</p>
+          <h2>Comp is paid on weighted attainment, and 70% of the plan sits in the two buckets this patch drives: AI Workforce (40%) and Copilot + Agents (30%). The job is to push those two over target, because every E7 deal lifts both at once.</h2>
+          <p>Every E7 deal retires 100% of AI Workforce quota and 56% of Copilot + Agents quota off its entire revenue. Autoliv (HiPo) alone is the swing. The shared blocker on the medium and low deals is cost and consumption economics, not product fit. One FinOps plus Agent 365 proof unlocks the upside.</p>
           <div className="insights">
-            <div className="insight"><div className="ic">The number</div><p>$7.6M to go, $14.8M open forecast. Coverage is 1.9x, but HiPo is a single deal. Concentration is the risk.</p></div>
-            <div className="insight"><div className="ic">The shared unlock</div><p>Cost predictability blocks MSC, CHR, and Harley. One FinOps plus Agent 365 governance proof clears all three.</p></div>
-            <div className="insight"><div className="ic">The seat story</div><p>118K net-new Copilot seats in play. 85% sits in upside, not commit. Converting upside seats is the growth motion.</p></div>
+            <div className="insight"><div className="ic">The comp number</div><p>Weighted attainment is what pays. Focus buckets (AIW + Copilot) are 70% of the plan. Move them, move the check.</p></div>
+            <div className="insight"><div className="ic">The multiplier</div><p>One E7 deal hits two buckets: 100% to AI Workforce, 56% to Copilot + Agents. Autoliv lifts both.</p></div>
+            <div className="insight"><div className="ic">The hidden credit</div><p>MSXi excludes the E7 security attach. True business is $19.9M target vs $15.6M reported, a $4.3M gap you should get credit for.</p></div>
           </div>
         </div>
 
-        <div className="section-title">Quota Attainment <span className="hint">E7 and Copilot tracked separately. An E7 deal retires 100% of E7 quota and 56% of Copilot quota.</span></div>
-        <div className="tracks">
-          <Track t={TRACKS.allup} cover={null} />
-          <Track t={TRACKS.e7} cover={coverE7} />
-          <Track t={TRACKS.copilot} cover={coverCp} />
-        </div>
-
-        <div className="section-title">Weighted Attainment · Comp View <span className="hint">one E7 deal retires multiple buckets. Entire revenue, not just forecast.</span></div>
-        <div className="wa">
-          <div className="wa-head">
-            <div>
-              <div className="wa-kick">Weighted attainment</div>
-              <div className="wa-big">{weightsSet ? Math.round(weighted('now') * 100) + '%' : 'Set plan weights'}</div>
-              <div className="wa-sub">{weightsSet ? 'Blended across buckets at plan weights. Projected ' + Math.round(weighted('withHiPo') * 100) + '% with HiPo, ' + Math.round(weighted('withAll') * 100) + '% if all open lands.' : 'Enter each bucket plan weight (from the MSX incentive view) to compute a single blended weighted-attainment number and the over-100% upside.'}</div>
+        <div className="section-title">Weighted Attainment · Comp View <span className="hint">{q === 'FY' ? 'full year' : q} · the number comp is paid on. Usage and Virtualization held at assumptions.</span></div>
+        <div className="wa-hero">
+          <div className="wa-big-card">
+            <div className="wl">{FY}-{q === 'FY' ? 'YTD' : q} weighted attainment</div>
+            <div className="wv">{Math.round(weightedNow)}%</div>
+            <div className="ws">Blended across all four comp buckets at plan weight. Projected with pipeline below.</div>
+            <div className="wa-proj">
+              <div>+ HiPo<b>{Math.round(weightedHiPo)}%</b></div>
+              <div>+ all open<b>{Math.round(weightedAll)}%</b></div>
             </div>
           </div>
-          <table className="wa-table">
-            <thead><tr><th>Earning bucket</th><th>E7 retires</th><th style={{ textAlign: 'right' }}>Target</th><th style={{ textAlign: 'right' }}>Now</th><th style={{ textAlign: 'right' }}>+ HiPo</th><th style={{ textAlign: 'right' }}>+ HiPo &amp; Med</th><th style={{ textAlign: 'right' }}>If all land</th><th style={{ textAlign: 'right' }}>Weight</th></tr></thead>
-            <tbody>
-              {bucketRows.map((b) => (
-                <tr key={b.key}>
-                  <td className="deal-name">{b.name}</td>
-                  <td>{Math.round(b.factor * 100)}%</td>
-                  <td className="num">{fmt(b.target)}</td>
-                  <td className="num"><span className={pctCls(b.now)}>{Math.round(b.now * 100)}%</span></td>
-                  <td className="num"><span className={pctCls(b.withHiPo)}>{Math.round(b.withHiPo * 100)}%</span></td>
-                  <td className="num"><span className={pctCls(b.withMed)}>{Math.round(b.withMed * 100)}%</span></td>
-                  <td className="num"><span className={pctCls(b.withAll)}>{Math.round(b.withAll * 100)}%</span></td>
-                  <td className="num">{b.weight != null ? Math.round(b.weight * 100) + '%' : <span className="flag" title="Enter plan weight">⚑</span>}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <div className="wa-note">Each open deal's entire FY27 revenue retires 100% of AI Workforce and 56% of Copilot &amp; Agents, so the same deal lifts both buckets. Autoliv alone (HiPo) takes Copilot &amp; Agents to {Math.round(bucketRows[1].withHiPo * 100)}% and AI Workforce to {Math.round(bucketRows[0].withHiPo * 100)}%. Other buckets an E7 deal may retire (Security, E5) are not yet modeled. Confirm the bucket list, targets, retirement rates, and weights from the MSX incentive view.</div>
+          <div className="bk-table">
+            <table>
+              <thead><tr><th>Earning bucket</th><th style={{ textAlign: 'right' }}>Weight</th><th style={{ textAlign: 'right' }}>Attainment</th><th style={{ textAlign: 'right' }}>Contribution</th></tr></thead>
+              <tbody>
+                {BUCKETS.map((b) => {
+                  const a = bucketNow(b);
+                  return (
+                    <tr className={`bk-row ${b.focus ? 'focus' : ''}`} key={b.key}>
+                      <td><div className="bk-name">{b.name}{b.focus ? <span className="bk-focus-tag">Focus</span> : <span className="bk-assume">Assumed</span>}</div><div className="bk-sub">{b.focus ? 'E7 retires ' + b.retires : 'held at ' + b.assume + '%, not patch focus'}</div></td>
+                      <td className="num">{Math.round(b.weight * 100)}%</td>
+                      <td className="num"><span className={pctCls(a)}>{Math.round(a)}%</span></td>
+                      <td className="num">{(b.weight * a).toFixed(1)}%</td>
+                    </tr>
+                  );
+                })}
+                <tr className="deal-total"><td className="bk-name">Weighted total</td><td></td><td></td><td className="num">{Math.round(weightedNow)}%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="section-title">Reported vs True Business <span className="hint">MSXi excludes the E7 security attach. Full year.</span></div>
+        <div className="lenses">
+          <div className="lens">
+            <div className="lens-h"><b>MSXi Reported</b><span className="lens-tag rep">System of record</span></div>
+            <div className="lens-grid">
+              <div className="lens-cell"><div className="ll">Target</div><div className="lv">{fmt(DBF_REPORTED_FY.target)}</div></div>
+              <div className="lens-cell"><div className="ll">Actuals + Sched</div><div className="lv">{fmt(DBF_REPORTED_FY.actuals)}</div></div>
+              <div className="lens-cell"><div className="ll">Target To Go</div><div className="lv togo">{fmt(repTogo)}</div></div>
+            </div>
+          </div>
+          <div className="lens true">
+            <div className="lens-h"><b>True Business (incl. E7 Security)</b><span className="lens-tag tru">What you drive</span></div>
+            <div className="lens-grid">
+              <div className="lens-cell"><div className="ll">Target</div><div className="lv">{fmt(DBF.FY.target)}</div></div>
+              <div className="lens-cell"><div className="ll">Actuals + Sched</div><div className="lv">{fmt(DBF.FY.actuals)}</div></div>
+              <div className="lens-cell"><div className="ll">Target To Go</div><div className="lv togo">{fmt(truTogo)}</div></div>
+            </div>
+          </div>
+          <div className="delta-note">The scorecard credits <b>{Math.round((DBF_REPORTED_FY.actuals / DBF_REPORTED_FY.target) * 100)}%</b> on {fmt(DBF_REPORTED_FY.target)}, but the full E7 motion you run is worth <b>{fmt(deltaTarget)}</b> more in target. The security attach is real business the system of record hides. Lead with both numbers.</div>
         </div>
 
         <div className="section-title">Net-New Copilot Seats <span className="hint">Copilot-inclusive E7 seats. HiPo commit vs. upside white space.</span></div>
@@ -387,7 +395,7 @@ function App() {
               ))}
               <tr className="deal-total">
                 <td className="deal-name">Total open forecast</td><td></td>
-                <td className="num">{fmt(fcTotal)}</td>
+                <td className="num">{fmt(fcAll)}</td>
                 <td className="num">{fmtK(seatsHiPo + seatsUpside)}</td>
                 <td colSpan="2"></td>
               </tr>
@@ -406,7 +414,7 @@ function App() {
         </div>
 
         <div className="foot">
-          Internal Microsoft GTM. Pipeline, seats, and forecast comments pulled from MSX (Copilot-inclusive E7 SKU only). Attainment from the MSXi Product Benchmark. FY27 forecast is in-fiscal-year billed revenue, which approximates quota retirement; anniversaries landing next fiscal (MSC, Smiths at July 1) count only their co-term months this year. Rows marked ⚑ have inferred fiscal timing to confirm. Win probability reads from each deal's CRM forecast comment. Quarterly all-up view pending Sean's quarterly target split. Not for external distribution.
+          Internal Microsoft GTM. Pipeline, seats, and forecast comments from MSX. Weighted attainment and bucket weights from MSX Earnings (AI Workforce 40%, Copilot + Agents 30%, Copilot + Agent Usage 15%, Virtualization 15%). Usage held at 120% and Virtualization at 100% as Sean's assumptions (not patch focus). All-up DBF by quarter is with E7 security and foots to the FY. MSXi Reported excludes the E7 security attach. FY27 forecast is in-fiscal-year billed revenue; anniversaries landing next fiscal (MSC, Smiths at July 1) count only co-term months. Rows marked ⚑ have inferred fiscal timing to confirm. Not for external distribution.
         </div>
       </div>
     </>
