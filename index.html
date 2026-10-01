@@ -116,6 +116,19 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--i
 .hbar-track{flex:1;background:var(--bg);border-radius:8px;height:26px;overflow:hidden}
 .hbar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--navy),var(--blue));display:flex;align-items:center;justify-content:flex-end;padding-right:10px;color:#fff;font-size:11.5px;font-weight:700;min-width:36px}
 .foot{color:var(--muted);font-size:12.5px;margin-top:40px;line-height:1.6;border-top:1px solid var(--border);padding-top:18px}
+.wa{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 26px}
+.wa-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+.wa-kick{font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+.wa-big{font-family:'Space Grotesk',sans-serif;font-size:40px;font-weight:700;color:var(--navy);line-height:1.1;margin-top:4px}
+.wa-sub{font-size:13px;color:var(--muted);margin-top:6px;max-width:80ch}
+.wa-table{width:100%;border-collapse:collapse;margin-top:4px}
+.wa-table th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:700;padding:10px 12px;border-bottom:2px solid var(--border)}
+.wa-table td{padding:12px;border-bottom:1px solid var(--border);font-size:13.5px}
+.wa-table tr:last-child td{border-bottom:none}
+.pct-over{background:rgba(26,156,91,.14);color:var(--green);font-weight:800;padding:2px 8px;border-radius:999px;font-size:12.5px}
+.pct-near{background:rgba(224,150,42,.16);color:var(--amber);font-weight:800;padding:2px 8px;border-radius:999px;font-size:12.5px}
+.pct-under{background:#eef2f7;color:var(--muted);font-weight:800;padding:2px 8px;border-radius:999px;font-size:12.5px}
+.wa-note{font-size:12px;color:var(--muted);margin-top:14px;border-top:1px dashed var(--border);padding-top:12px;line-height:1.5}
 @media(max-width:900px){.tracks,.seats-row,.insights,.hipo{grid-template-columns:1fr}.wrap{padding:24px}.seat-num{font-size:40px}}
 </style>
 </head>
@@ -130,6 +143,9 @@ const { useState } = React;
 const SELLER = 'Sean Hughley';
 const FY = 'FY27';
 const COPILOT_FACTOR = 0.56;
+/* Comp plan weights per earning bucket (fraction of plan). null until Sean confirms
+   from his MSX incentive view. When set, a single weighted-attainment % is computed. */
+const COMP_WEIGHTS = { aiw: null, cpa: null };
 
 const TRACKS = {
   e7:     { name: 'E7 / M365 Suite', tag: 'tag-e7', target: 8778078,  actual: 6891,    scheduled: 4141908, togo: 4629280, upside: 4912344 },
@@ -179,6 +195,7 @@ const hours = [
 const fmt = (n) => n >= 1e6 ? '$' + (n / 1e6).toFixed(2) + 'M' : '$' + Math.round(n / 1e3) + 'K';
 const fmtK = (n) => n.toLocaleString();
 const fyForecast = (d) => Math.round(d.monthly * d.fyMonths);
+const pctCls = (r) => r >= 1 ? 'pct-over' : (r >= 0.8 ? 'pct-near' : 'pct-under');
 
 function Track({ t, cover }) {
   const attained = t.actual + t.scheduled;
@@ -211,6 +228,25 @@ function App() {
   const fcTotal = deals.reduce((t, d) => t + fyForecast(d), 0);
   const coverE7 = fcTotal;
   const coverCp = Math.round(fcTotal * COPILOT_FACTOR);
+
+  // Weighted attainment / comp buckets. Each open deal's quota revenue retires
+  // 100% into AI Workforce and 56% into Copilot & Agents (plus other buckets TBD).
+  const fcBy = (p) => deals.filter((d) => d.prob === p).reduce((t, d) => t + fyForecast(d), 0);
+  const fcHiPo = fcBy('high');
+  const fcMed = fcBy('med');
+  const BUCKETS = [
+    { key: 'aiw', name: 'AI Workforce', factor: 1.00, target: TRACKS.allup.target, attained: TRACKS.allup.actual + TRACKS.allup.scheduled, weight: COMP_WEIGHTS.aiw },
+    { key: 'cpa', name: 'Copilot & Agents', factor: COPILOT_FACTOR, target: TRACKS.copilot.target, attained: TRACKS.copilot.actual + TRACKS.copilot.scheduled, weight: COMP_WEIGHTS.cpa },
+  ];
+  const bucketRows = BUCKETS.map((b) => {
+    const now = b.attained / b.target;
+    const withHiPo = (b.attained + fcHiPo * b.factor) / b.target;
+    const withMed = (b.attained + (fcHiPo + fcMed) * b.factor) / b.target;
+    const withAll = (b.attained + fcTotal * b.factor) / b.target;
+    return { ...b, now, withHiPo, withMed, withAll };
+  });
+  const weightsSet = BUCKETS.every((b) => b.weight != null);
+  const weighted = (sel) => weightsSet ? bucketRows.reduce((t, b) => t + b.weight * b[sel], 0) : null;
 
   const seatsHiPo = deals.filter((d) => d.prob === 'high').reduce((t, d) => t + d.seats, 0);
   const seatsMed = deals.filter((d) => d.prob === 'med').reduce((t, d) => t + d.seats, 0);
@@ -261,6 +297,35 @@ function App() {
           <Track t={TRACKS.allup} cover={null} />
           <Track t={TRACKS.e7} cover={coverE7} />
           <Track t={TRACKS.copilot} cover={coverCp} />
+        </div>
+
+        <div className="section-title">Weighted Attainment · Comp View <span className="hint">one E7 deal retires multiple buckets. Entire revenue, not just forecast.</span></div>
+        <div className="wa">
+          <div className="wa-head">
+            <div>
+              <div className="wa-kick">Weighted attainment</div>
+              <div className="wa-big">{weightsSet ? Math.round(weighted('now') * 100) + '%' : 'Set plan weights'}</div>
+              <div className="wa-sub">{weightsSet ? 'Blended across buckets at plan weights. Projected ' + Math.round(weighted('withHiPo') * 100) + '% with HiPo, ' + Math.round(weighted('withAll') * 100) + '% if all open lands.' : 'Enter each bucket plan weight (from the MSX incentive view) to compute a single blended weighted-attainment number and the over-100% upside.'}</div>
+            </div>
+          </div>
+          <table className="wa-table">
+            <thead><tr><th>Earning bucket</th><th>E7 retires</th><th style={{ textAlign: 'right' }}>Target</th><th style={{ textAlign: 'right' }}>Now</th><th style={{ textAlign: 'right' }}>+ HiPo</th><th style={{ textAlign: 'right' }}>+ HiPo &amp; Med</th><th style={{ textAlign: 'right' }}>If all land</th><th style={{ textAlign: 'right' }}>Weight</th></tr></thead>
+            <tbody>
+              {bucketRows.map((b) => (
+                <tr key={b.key}>
+                  <td className="deal-name">{b.name}</td>
+                  <td>{Math.round(b.factor * 100)}%</td>
+                  <td className="num">{fmt(b.target)}</td>
+                  <td className="num"><span className={pctCls(b.now)}>{Math.round(b.now * 100)}%</span></td>
+                  <td className="num"><span className={pctCls(b.withHiPo)}>{Math.round(b.withHiPo * 100)}%</span></td>
+                  <td className="num"><span className={pctCls(b.withMed)}>{Math.round(b.withMed * 100)}%</span></td>
+                  <td className="num"><span className={pctCls(b.withAll)}>{Math.round(b.withAll * 100)}%</span></td>
+                  <td className="num">{b.weight != null ? Math.round(b.weight * 100) + '%' : <span className="flag" title="Enter plan weight">⚑</span>}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="wa-note">Each open deal's entire FY27 revenue retires 100% of AI Workforce and 56% of Copilot &amp; Agents, so the same deal lifts both buckets. Autoliv alone (HiPo) takes Copilot &amp; Agents to {Math.round(bucketRows[1].withHiPo * 100)}% and AI Workforce to {Math.round(bucketRows[0].withHiPo * 100)}%. Other buckets an E7 deal may retire (Security, E5) are not yet modeled. Confirm the bucket list, targets, retirement rates, and weights from the MSX incentive view.</div>
         </div>
 
         <div className="section-title">Net-New Copilot Seats <span className="hint">Copilot-inclusive E7 seats. HiPo commit vs. upside white space.</span></div>
