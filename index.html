@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>E7 &amp; Copilot GTM · Sean Hughley</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0a2540;--navy-deep:#061a30;--blue:#0078d4;--blue-soft:#e9f3fc;--cyan:#50e6ff;--gold:#e0a53a;
+  --ink:#15202e;--muted:#5d6b80;--border:#e3e9f1;--surface:#fff;--bg:#f3f7fb;
+  --green:#1a9c5b;--amber:#e0962a;--red:#d1472c;
+  --radius:14px;--shadow:0 2px 14px rgba(10,37,64,.07);--shadow-lg:0 14px 44px rgba(10,37,64,.15);
+}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+.top{position:sticky;top:0;z-index:50;background:rgba(10,37,64,.98);backdrop-filter:blur(10px);color:#fff;padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 18px rgba(0,0,0,.2)}
+.top-brand{display:flex;align-items:center;gap:13px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px}
+.top-brand .mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--cyan));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--navy)}
+.top-right{display:flex;align-items:center;gap:14px;font-size:12.5px;color:rgba(255,255,255,.65)}
+.badge{background:var(--gold);color:var(--navy);font-size:10.5px;font-weight:800;padding:3px 10px;border-radius:999px;letter-spacing:.5px}
+.wrap{max-width:1240px;margin:0 auto;padding:40px}
+.page-head{margin-bottom:8px}
+.page-eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.page-head h1{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;letter-spacing:-1px;color:var(--navy)}
+.page-head p{font-size:15.5px;color:var(--muted);max-width:66ch;margin-top:8px}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);font-weight:700;margin:40px 0 16px;display:flex;align-items:baseline;gap:12px}
+.section-title .hint{font-size:12px;letter-spacing:0;text-transform:none;color:var(--muted);font-weight:500}
+.variance{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}
+.vcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);position:relative}
+.vcard .vlbl{font-size:11.5px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700}
+.vcard .vval{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:var(--navy);margin-top:6px;line-height:1.05}
+.vcard .vexplain{font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.4}
+.vcard.target{background:linear-gradient(135deg,var(--navy),#123a63);color:#fff}
+.vcard.target .vlbl{color:rgba(255,255,255,.7)}.vcard.target .vval{color:#fff}.vcard.target .vexplain{color:rgba(255,255,255,.72)}
+.vcard.gap .vval{color:var(--red)}
+.vcard.gap.covered .vval{color:var(--green)}
+.progress{height:10px;border-radius:999px;background:var(--border);margin-top:14px;overflow:hidden}
+.progress>span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--blue),var(--cyan))}
+.pct-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:7px;font-weight:600}
+.seats-hero{margin-top:18px;background:linear-gradient(120deg,var(--navy-deep),var(--blue));border-radius:18px;padding:30px 36px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:28px;box-shadow:var(--shadow-lg);flex-wrap:wrap}
+.seats-hero .sh-left{max-width:52ch}
+.seats-hero .sh-kick{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px}
+.seats-hero h2{font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:600;line-height:1.3}
+.seats-hero p{font-size:13.5px;color:rgba(255,255,255,.8);margin-top:8px}
+.seats-num{font-family:'Space Grotesk',sans-serif;font-size:62px;font-weight:700;letter-spacing:-2px;line-height:1;white-space:nowrap}
+.seats-num small{display:block;font-size:13px;font-weight:600;letter-spacing:.5px;color:var(--cyan);margin-top:6px;text-align:right}
+.hipo{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.hipo-col{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.hipo-col h3{font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.hipo-col .hc-sum{font-size:12.5px;color:var(--muted);margin-bottom:14px;font-weight:600}
+.dot{width:10px;height:10px;border-radius:50%}
+.dot.high{background:var(--green)}.dot.med{background:var(--amber)}.dot.low{background:var(--muted)}
+.hipo-chip{display:block;padding:12px 14px;border:1px solid var(--border);border-left:4px solid var(--brand,var(--blue));border-radius:10px;margin-bottom:10px;text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s}
+.hipo-chip:hover{transform:translateX(2px);box-shadow:var(--shadow)}
+.hipo-chip .hc-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.hipo-chip .hc-name{font-weight:700;font-size:14px;color:var(--navy)}
+.hipo-chip .hc-val{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--navy)}
+.hipo-chip .hc-meta{font-size:12px;color:var(--muted);margin-top:3px}
+.deals{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.deals table{width:100%;border-collapse:collapse}
+.deals th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:700;padding:14px 16px;border-bottom:2px solid var(--border);background:var(--bg)}
+.deals td{padding:14px 16px;border-bottom:1px solid var(--border);font-size:13.5px;vertical-align:middle}
+.deals tr:last-child td{border-bottom:none}
+.deals tr:hover td{background:#fafcfe}
+.deal-name{font-weight:600;color:var(--navy)}
+.deal-sub{font-size:12px;color:var(--muted)}
+.num{font-family:'Space Grotesk',sans-serif;font-weight:600;text-align:right;white-space:nowrap}
+.prob-pill{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:3px 9px;border-radius:999px}
+.prob-high{background:rgba(26,156,91,.14);color:var(--green)}
+.prob-med{background:rgba(224,150,42,.16);color:var(--amber)}
+.prob-low{background:#eef2f7;color:var(--muted)}
+.links{display:flex;gap:8px;white-space:nowrap}
+.lnk{font-size:12px;font-weight:700;text-decoration:none;padding:6px 11px;border-radius:8px;border:1px solid var(--border)}
+.lnk.strat{color:var(--blue);border-color:rgba(0,120,212,.3)}
+.lnk.strat:hover{background:var(--blue-soft)}
+.lnk.crm{color:var(--muted)}
+.lnk.crm:hover{background:var(--bg)}
+.lnk.off{opacity:.4;pointer-events:none}
+.hours{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px 26px;box-shadow:var(--shadow)}
+.hbar-row{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.hbar-row:last-child{margin-bottom:0}
+.hbar-name{width:140px;font-size:13.5px;font-weight:600;color:var(--navy);flex-shrink:0}
+.hbar-track{flex:1;background:var(--bg);border-radius:8px;height:26px;overflow:hidden}
+.hbar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--navy),var(--blue));display:flex;align-items:center;justify-content:flex-end;padding-right:10px;color:#fff;font-size:11.5px;font-weight:700;min-width:36px}
+.foot{color:var(--muted);font-size:12.5px;margin-top:40px;line-height:1.6;border-top:1px solid var(--border);padding-top:18px}
+@media(max-width:900px){.variance{grid-template-columns:1fr 1fr}.hipo{grid-template-columns:1fr}.wrap{padding:24px}.seats-num{font-size:46px}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+const { useState } = React;
+
+const SELLER = 'Sean Hughley';
+const FY = 'FY27';
+const E7_QUOTA = null;
+const CRM = (guid) => `https://microsoftsales.crm.dynamics.com/main.aspx?pagetype=entityrecord&etn=opportunity&id=${guid}`;
+const STRAT = {
+  autoliv: 'https://seanhughley12.github.io/Autoliv.Harley.Smiths.Echo/autoliv/',
+  harley: 'https://seanhughley12.github.io/Autoliv.Harley.Smiths.Echo/',
+  smiths: 'https://seanhughley12.github.io/Autoliv.Harley.Smiths.Echo/',
+  echo: 'https://seanhughley12.github.io/Autoliv.Harley.Smiths.Echo/',
+  msc: 'https://seanhughley12.github.io/MSC/',
+  chrobinson: 'https://seanhughley12.github.io/CHR.Polaris.Sriva/',
+};
+
+const deals = [
+  { name: 'MSC — 73K Seats, The AI Platform', acct: 'msc', brand: '#13477e', guid: '65aaeb01-1c76-f111-ab0f-7ced8dda43b8', value: 4412101, seats: 62021, close: 'Jan 20', prob: 'high' },
+  { name: 'CH Robinson — 12,020 Seats', acct: 'chrobinson', brand: '#0a7d3a', guid: '3cc8156b-1d76-f111-ab0f-7ced8dda43b8', value: 2307840, seats: 12020, close: 'Mar 18', prob: 'med' },
+  { name: 'Autoliv — E7 Step-up (Anniversary)', acct: 'autoliv', brand: '#005495', guid: '512dda65-c773-f111-ab0f-000d3a162e2d', value: 1374504, seats: 18080, close: 'Dec 1', prob: 'high' },
+  { name: 'W2W E7 Step-up', acct: null, brand: '#5a6b80', guid: '65ab5020-74a8-f111-b8de-000d3a8cec07', value: 1000320, seats: 4168, close: 'Apr 1', prob: 'low' },
+  { name: 'Smiths — E7 Step-up (Mid-term)', acct: 'smiths', brand: '#0a2540', guid: 'fa5f22c1-9674-f111-ab0f-000d3a162e2d', value: 761319, seats: 12050, close: 'Jan 1', prob: 'med' },
+  { name: 'Echo Global — E7 Step-up (Anniversary)', acct: 'echo', brand: '#00843d', guid: '46ab0baa-d773-f111-ab0f-000d3a162e2d', value: 510747, seats: 4042, close: 'Apr 1', prob: 'low' },
+  { name: 'Harley-Davidson — E7 Step-up (Renewal)', acct: 'harley', brand: '#f6861f', guid: '4ef033e2-d873-f111-ab0f-000d3a162e2d', value: 342000, seats: 6000, close: 'May 1', prob: 'low' },
+];
+
+const hours = [
+  { name: 'MSC', n: 54 }, { name: 'Autoliv', n: 35 }, { name: 'CH Robinson', n: 20 },
+  { name: 'Harley', n: 14 }, { name: 'Smiths', n: 10 }, { name: 'Echo', n: 2 },
+];
+
+const fmt = (n) => n >= 1e6 ? '$' + (n / 1e6).toFixed(2) + 'M' : '$' + Math.round(n / 1e3) + 'K';
+const fmtK = (n) => n.toLocaleString();
+
+function App() {
+  const pipeline = deals.reduce((t, d) => t + d.value, 0);
+  const committed = deals.filter((d) => d.prob === 'high').reduce((t, d) => t + d.value, 0);
+  const seats = deals.reduce((t, d) => t + d.seats, 0);
+  const pct = E7_QUOTA ? Math.round((pipeline / E7_QUOTA) * 100) : null;
+  const gap = E7_QUOTA ? Math.max(0, E7_QUOTA - committed) : null;
+  const probMeta = { high: ['High', 'prob-high', 'dot high'], med: ['Medium', 'prob-med', 'dot med'], low: ['Low', 'prob-low', 'dot low'] };
+  const byProb = (p) => deals.filter((d) => d.prob === p);
+  const maxHours = Math.max.apply(null, hours.map((h) => h.n));
+
+  const DealLinks = ({ d }) => (
+    <div className="links">
+      <a className={`lnk strat ${d.acct && STRAT[d.acct] ? '' : 'off'}`} href={d.acct ? STRAT[d.acct] : '#'} target="_blank" rel="noreferrer">Strategy →</a>
+      <a className="lnk crm" href={CRM(d.guid)} target="_blank" rel="noreferrer">CRM ↗</a>
+    </div>
+  );
+
+  return (
+    <>
+      <div className="top">
+        <div className="top-brand"><span className="mark">E7</span> E7 &amp; Copilot · GTM</div>
+        <div className="top-right"><span>{SELLER} · {FY}</span><span className="badge">INTERNAL</span></div>
+      </div>
+      <div className="wrap">
+        <div className="page-head">
+          <div className="page-eyebrow">Go-to-Market Rollup · {FY}</div>
+          <h1>E7 &amp; Copilot Patch</h1>
+          <p>The whole patch on one page: target vs. pipeline, net-new Copilot seats, which deals decide the number, and where the time goes. Every deal links to its strategy page and its CRM record.</p>
+        </div>
+
+        <div className="section-title">Attainment <span className="hint">where the number stands against target</span></div>
+        <div className="variance">
+          <div className="vcard target">
+            <div className="vlbl">E7 Quota (target)</div>
+            <div className="vval">{E7_QUOTA ? fmt(E7_QUOTA) : 'Set target'}</div>
+            <div className="vexplain">{E7_QUOTA ? 'The E7 number to hit this year.' : 'MSXi scorecard allocation — enter the FY27 E7 target to light up coverage and gap.'}</div>
+          </div>
+          <div className="vcard">
+            <div className="vlbl">Total Pipeline</div>
+            <div className="vval">{fmt(pipeline)}</div>
+            <div className="vexplain">All {deals.length} open E7 / Copilot opportunities in the patch.</div>
+          </div>
+          <div className="vcard">
+            <div className="vlbl">Committed (high prob)</div>
+            <div className="vval">{fmt(committed)}</div>
+            <div className="vexplain">Deals most likely to land — what you can count on today.</div>
+          </div>
+          <div className={`vcard gap ${gap === 0 ? 'covered' : ''}`}>
+            <div className="vlbl">{E7_QUOTA ? 'Gap to Target' : 'Pipeline Coverage'}</div>
+            <div className="vval">{E7_QUOTA ? (gap > 0 ? fmt(gap) : 'Covered') : '—'}</div>
+            <div className="vexplain">{E7_QUOTA ? 'Still to close against target after committed.' : 'Set the target to compute gap.'}</div>
+            {E7_QUOTA && <><div className="progress"><span style={{ width: Math.min(100, pct) + '%' }} /></div><div className="pct-row"><span>{pct}% of target in pipeline</span><span>{fmt(committed)} committed</span></div></>}
+          </div>
+        </div>
+
+        <div className="seats-hero">
+          <div className="sh-left">
+            <div className="sh-kick">The number leadership cares about</div>
+            <h2>Net-new Copilot seats across the patch</h2>
+            <p>Copilot-inclusive E7 seats (M365 E7 FUSL SU M365 E5) summed across every open E7 opportunity. Most of these customers sit in the single digits of Copilot penetration today.</p>
+          </div>
+          <div className="seats-num">{fmtK(seats)}<small>NET-NEW COPILOT SEATS</small></div>
+        </div>
+
+        <div className="section-title">HiPo View <span className="hint">deals by win probability — confirm with Sean</span></div>
+        <div className="hipo">
+          {['high', 'med', 'low'].map((p) => {
+            const list = byProb(p);
+            const sum = list.reduce((t, d) => t + d.value, 0);
+            return (
+              <div className="hipo-col" key={p}>
+                <h3><span className={probMeta[p][2]} /> {probMeta[p][0]} Probability</h3>
+                <div className="hc-sum">{list.length} deals · {fmt(sum)}</div>
+                {list.map((d, i) => (
+                  <a className="hipo-chip" style={{ '--brand': d.brand }} key={i} href={d.acct && STRAT[d.acct] ? STRAT[d.acct] : CRM(d.guid)} target="_blank" rel="noreferrer">
+                    <div className="hc-top"><span className="hc-name">{d.name.split(' — ')[0]}</span><span className="hc-val">{fmt(d.value)}</span></div>
+                    <div className="hc-meta">{fmtK(d.seats)} seats · closes {d.close}</div>
+                  </a>
+                ))}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="section-title">Deals That Decide <span className="hint">ranked by value · click into strategy or CRM</span></div>
+        <div className="deals">
+          <table>
+            <thead><tr><th>Deal</th><th>Prob</th><th style={{ textAlign: 'right' }}>Value</th><th style={{ textAlign: 'right' }}>Net-new Seats</th><th>Close</th><th>Links</th></tr></thead>
+            <tbody>
+              {deals.map((d, i) => (
+                <tr key={i}>
+                  <td><div className="deal-name">{d.name.split(' — ')[0]}</div><div className="deal-sub">{d.name.indexOf(' — ') >= 0 ? d.name.split(' — ')[1] : ''}</div></td>
+                  <td><span className={`prob-pill ${probMeta[d.prob][1]}`}>{probMeta[d.prob][0]}</span></td>
+                  <td className="num">{fmt(d.value)}</td>
+                  <td className="num">{fmtK(d.seats)}</td>
+                  <td>{d.close}</td>
+                  <td><DealLinks d={d} /></td>
+                </tr>
+              ))}
+              <tr style={{ fontWeight: 700 }}>
+                <td className="deal-name">Total</td><td></td>
+                <td className="num">{fmt(pipeline)}</td>
+                <td className="num">{fmtK(seats)}</td>
+                <td colSpan="2"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="section-title">Where the Hours Go <span className="hint">meeting time by account, last 60 days</span></div>
+        <div className="hours">
+          {hours.map((h, i) => (
+            <div className="hbar-row" key={i}>
+              <div className="hbar-name">{h.name}</div>
+              <div className="hbar-track"><div className="hbar-fill" style={{ width: Math.max(8, (h.n / maxHours) * 100) + '%' }}>{h.n}</div></div>
+            </div>
+          ))}
+        </div>
+
+        <div className="foot">
+          Internal Microsoft GTM. Pipeline and seats pulled live from MSX (Copilot-inclusive E7 SKU only). Win probability is an inference to confirm with {SELLER}. E7 quota is an MSXi scorecard allocation — set it in config to show coverage and gap. Not for external distribution.
+        </div>
+      </div>
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
